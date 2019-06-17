@@ -11,7 +11,6 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 // db
-//mongodb://kaloraat:dhungel8@ds257054.mlab.com:57054/nodeapi
 var MONGO_URI="mongodb+srv://krishna-96214:nodeapi@nodeapi-68lrl.mongodb.net/test?retryWrites=true&w=majority"
 mongoose
     .connect( MONGO_URI , { useNewUrlParser: true })
