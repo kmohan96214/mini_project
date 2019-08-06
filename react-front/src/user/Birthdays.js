@@ -3,7 +3,7 @@ import { list } from "./apiUser";
 import DefaultProfile from "../images/avatar.jpg";
 import { Link } from "react-router-dom";
 
-class Users extends Component {
+class Birthdays extends Component {
     constructor() {
         super();
         this.state = {
@@ -16,6 +16,7 @@ class Users extends Component {
             if (data.error) {
                 console.log(data.error);
             } else {
+                console.log(data);
                 this.setState({ users: data });
             }
         });
@@ -53,12 +54,13 @@ class Users extends Component {
         const { users } = this.state;
         return (
             <div className="container">
-                <h2 className="mt-5 mb-5">Users</h2>
-
-                {this.renderUsers(users)}
+                <h2 className="mt-5 mb-5">Birthdays</h2>
+                {this.renderUsers(users.filter(user => { return (new Date()).toString().substring(0,15)
+                                        ==
+                                        (new Date(user.birthday)).toString().substring(0,15);    }))}
             </div>
         );
     }
 }
 
-export default Users;
+export default Birthdays;

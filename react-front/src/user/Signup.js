@@ -12,7 +12,8 @@ class Signup extends Component {
             password: "",
             error: "",
             open: false,
-            recaptcha: false
+            recaptcha: false,
+            birthday: ""
         };
     }
 
@@ -55,11 +56,12 @@ class Signup extends Component {
 
     clickSubmit = event => {
         event.preventDefault();
-        const { name, email, password } = this.state;
+        const { name, email, password, birthday } = this.state;
         const user = {
             name,
             email,
-            password
+            password,
+            birthday
         };
         // console.log(user);
         if (this.state.recaptcha) {
@@ -71,6 +73,7 @@ class Signup extends Component {
                         name: "",
                         email: "",
                         password: "",
+                        birthday: "",
                         open: true
                     });
             });
@@ -81,7 +84,7 @@ class Signup extends Component {
         }
     };
 
-    signupForm = (name, email, password, recaptcha) => (
+    signupForm = (name, email, password, recaptcha,birthday) => (
         <form>
             <div className="form-group">
                 <label className="text-muted">Name</label>
@@ -108,6 +111,15 @@ class Signup extends Component {
                     type="password"
                     className="form-control"
                     value={password}
+                />
+            </div>
+            <div className="form-group">
+                <label className="text-muted">Birthday</label>
+                <input
+                    onChange={this.handleChange("birthday")}
+                    type="date"
+                    className="form-control"
+                    value={birthday}
                 />
             </div>
 

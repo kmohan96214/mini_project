@@ -6,6 +6,7 @@ import Signup from "./user/Signup";
 import Signin from "./user/Signin";
 import Profile from "./user/Profile";
 import Users from "./user/Users";
+import Birthdays from "./user/Birthdays";
 import EditProfile from "./user/EditProfile";
 import FindPeople from "./user/FindPeople";
 import NewPost from "./post/NewPost";
@@ -36,6 +37,7 @@ const MainRouter = () => (
                 component={EditPost}
             />
             <Route exact path="/users" component={Users} />
+            <Route exact path="/birthdays" component={Birthdays} />
             <Route exact path="/signup" component={Signup} />
             <Route exact path="/signin" component={Signin} />
             <PrivateRoute

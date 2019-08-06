@@ -125,9 +125,7 @@ class Comment extends Component {
                                         onError={i =>
                                             (i.target.src = `${DefaultProfile}`)
                                         }
-                                        src={`${
-                                            process.env.REACT_APP_API_URL
-                                        }/user/photo/${comment.postedBy._id}`}
+                                        src={`http://localhost:8080/api/user/photo/${comment.postedBy._id}`}
                                         alt={comment.postedBy.name}
                                     />
                                 </Link>

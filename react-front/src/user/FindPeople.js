@@ -53,7 +53,7 @@ class FindPeople extends Component {
                     <img
                         style={{ height: "200px", width: "auto" }}
                         className="img-thumbnail"
-                        src={`${process.env.REACT_APP_API_URL}/user/photo/${
+                        src={`http:localhost:8080/api/user/photo/${
                             user._id
                         }`}
                         onError={i => (i.target.src = `${DefaultProfile}`)}

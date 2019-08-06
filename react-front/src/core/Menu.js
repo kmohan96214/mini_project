@@ -1,13 +1,33 @@
 import React from "react";
 import { Link, withRouter } from "react-router-dom";
 import { signout, isAuthenticated } from "../auth";
+import { list } from "../user/apiUser"
 
 const isActive = (history, path) => {
     if (history.location.pathname === path) return { color: "#ff9900" };
     else return { color: "#ffffff" };
 };
 
+//var wait = ms => new Promise((r, j)=>setTimeout(r, ms));
+
+function num(){
+    var count = 0;
+    //var dol = await list();
+    //d = d.length;
+    //console.log("d:"+d);
+    list().then(data => {
+        console.log(data.length);
+        count = data.filter(d => { return (new Date()).toString().substring(0,15)
+                                    ==
+                                    (new Date(d.birthday)).toString().substring(0,15);}).length;
+        console.log(count);
+    });
+
+    return count;
+};
+
 const Menu = ({ history }) => (
+
     <div>
         <ul className="nav nav-tabs bg-primary">
             <li className="nav-item">
@@ -27,6 +47,16 @@ const Menu = ({ history }) => (
                     to="/users"
                 >
                     Users
+                </Link>
+            </li>
+
+            <li className="nav-item">
+                <Link
+                    className="nav-link"
+                    style={isActive(history, "/birthdays")}
+                    to="/birthdays"
+                >
+                    Birthdays { num() }
                 </Link>
             </li>
 

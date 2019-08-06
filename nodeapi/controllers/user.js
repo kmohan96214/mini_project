@@ -44,7 +44,8 @@ exports.allUsers = (req, res) => {
             });
         }
         res.json(users);
-    }).select("name email updated created role");
+        console.log(users);
+    }).select("name email updated created birthday role");
 };
 
 exports.getUser = (req, res) => {
@@ -107,6 +108,7 @@ exports.updateUser = (req, res, next) => {
 };
 
 exports.userPhoto = (req, res, next) => {
+    console.log(req.profile.photo.data);
     if (req.profile.photo.data) {
         res.set(("Content-Type", req.profile.photo.contentType));
         return res.send(req.profile.photo.data);

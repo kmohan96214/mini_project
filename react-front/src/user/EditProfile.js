@@ -185,9 +185,7 @@ class EditProfile extends Component {
         }
 
         const photoUrl = id
-            ? `${
-                  process.env.REACT_APP_API_URL
-              }/user/photo/${id}?${new Date().getTime()}`
+            ? `http://localhost:8080/api/user/photo/${id}?${new Date().getTime()}`
             : DefaultProfile;
 
         return (

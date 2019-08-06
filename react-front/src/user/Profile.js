@@ -105,7 +105,10 @@ class Profile extends Component {
                         <div className="lead mt-2">
                             <p>Hello {user.name}</p>
                             <p>Email: {user.email}</p>
-                            <p>{`Joined ${new Date(
+                            <p>{`DOB: ${new Date(
+                                user.birthday
+                            ).toDateString()}`}</p>
+                            <p>{`Joined: ${new Date(
                                 user.created
                             ).toDateString()}`}</p>
                         </div>
