@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, withRouter } from "react-router-dom";
 import { signout, isAuthenticated } from "../auth";
 import { list } from "../user/apiUser"
@@ -10,23 +10,27 @@ const isActive = (history, path) => {
 
 //var wait = ms => new Promise((r, j)=>setTimeout(r, ms));
 
-function num(){
-    var count = 0;
-    //var dol = await list();
-    //d = d.length;
-    //console.log("d:"+d);
-    list().then(data => {
-        console.log(data.length);
-        count = data.filter(d => { return (new Date()).toString().substring(0,15)
-                                    ==
-                                    (new Date(d.birthday)).toString().substring(0,15);}).length;
-        console.log(count);
-    });
+const Menu = ({ history }) => {
 
-    return count;
-};
+    const [num, updateNum] = useState(0)
+    const [dataFetched, updateAfterAjaxCall] = useState(false)
 
-const Menu = ({ history }) => (
+    const getNum = () => {
+        var count = 0
+        list().then(data => {
+            console.log(data.length);
+            count = data.filter(d => { 
+                return (new Date()).toString().substring(0,15)
+                                        ==
+                                        (new Date(d.birthday)).toString().substring(0,15);}).length;
+            updateNum(count)
+            updateAfterAjaxCall(true)
+            console.log(dataFetched)
+        })
+    }
+    let temp
+    if(dataFetched) {
+        temp = (
 
     <div>
         <ul className="nav nav-tabs bg-primary">
@@ -56,7 +60,7 @@ const Menu = ({ history }) => (
                     style={isActive(history, "/birthdays")}
                     to="/birthdays"
                 >
-                    Birthdays { num() }
+                    Birthdays { getNum() || "nai aaya" }
                 </Link>
             </li>
 
@@ -146,6 +150,14 @@ const Menu = ({ history }) => (
             )}
         </ul>
     </div>
-);
+)
+}  else {
+    temp = (
+    <div>Loading</div>
+        )
+}
+    
+ return temp
+}
 
 export default withRouter(Menu);
