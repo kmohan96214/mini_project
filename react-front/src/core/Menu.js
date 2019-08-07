@@ -54,15 +54,17 @@ const Menu = ({ history }) => {
                 </Link>
             </li>
 
-            <li className="nav-item">
+            {isAuthenticated() && (
+                <li className="nav-item">
                 <Link
                     className="nav-link"
                     style={isActive(history, "/birthdays")}
                     to="/birthdays"
                 >
-                    Birthdays { num || "--" }
+                    Birthdays ({ (num) || "--" })
                 </Link>
             </li>
+            )}
 
             <li className="nav-item">
                 <Link
