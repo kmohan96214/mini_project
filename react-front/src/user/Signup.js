@@ -123,18 +123,6 @@ class Signup extends Component {
                 />
             </div>
 
-            <div className="form-group">
-                <label className="text-muted">
-                    {recaptcha ? "Thanks. You got it!" : "What day is today?"}
-                </label>
-
-                <input
-                    onChange={this.recaptchaHandler}
-                    type="text"
-                    className="form-control"
-                />
-            </div>
-
             <button
                 onClick={this.clickSubmit}
                 className="btn btn-raised btn-primary"
@@ -150,10 +138,6 @@ class Signup extends Component {
             <div className="container">
                 <h2 className="mt-5 mb-5">Signup</h2>
 
-                <hr />
-                <SocialLogin />
-
-                <hr />
                 <br />
 
                 <div
