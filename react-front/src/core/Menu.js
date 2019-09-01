@@ -61,7 +61,7 @@ const Menu = ({ history }) => {
                     style={isActive(history, "/birthdays")}
                     to="/birthdays"
                 >
-                    Birthdays ({ (num) || "--" })
+                    Birthdays ({ (num) })
                 </Link>
             </li>
             )}
