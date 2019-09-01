@@ -12,7 +12,8 @@ const {
     like,
     unlike,
     comment,
-    uncomment
+    uncomment,
+    getPosts2
 } = require("../controllers/post");
 const { requireSignin } = require("../controllers/auth");
 const { userById } = require("../controllers/user");
@@ -37,6 +38,8 @@ router.post(
     createPost,
     createPostValidator
 );
+
+router.get("/posts2/:userid",getPosts2);
 router.get("/posts/by/:userId", requireSignin, postsByUser);
 router.get("/post/:postId", singlePost);
 router.put("/post/:postId", requireSignin, isPoster, updatePost);

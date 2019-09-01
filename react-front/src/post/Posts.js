@@ -1,19 +1,38 @@
 import React, { Component } from "react";
 import { list } from "./apiPost";
+import { isAuthenticated } from "../auth";
 import DefaultPost from "../images/mountains.jpg";
 import { Link } from "react-router-dom";
+
+const test = (page,userid) => {
+    return fetch(`http://localhost:8080/api/posts/?page=${page}&userid=${userid}`, {
+        method: "GET"
+    })
+        .then(response => {
+            return response.json();
+        })
+        .catch(err => console.log(err));
+};
+
 
 class Posts extends Component {
     constructor() {
         super();
         this.state = {
             posts: [],
+            user: {},
             page: 1
         };
     }
 
-    loadPosts = page => {
-        list(page).then(data => {
+    loadPosts = (page) => {
+        // console.log(`here calling ${user._id}`);
+        let usr = JSON.parse(localStorage.getItem("jwt"));
+        // console.log(`id : ${usr.user._id} ${usr}`)
+        let userid = null;
+        if(usr)
+            userid = usr.user._id;
+        test(page,userid).then(data => {
             if (data.error) {
                 console.log(data.error);
             } else {
@@ -23,6 +42,9 @@ class Posts extends Component {
     };
 
     componentDidMount() {
+        let usr = JSON.parse(localStorage.getItem("jwt"));
+        // console.log(`user : ${usr.user._id} ${JSON.parse(localStorage.getItem("new"))}`);
+        // this.setState({ user: usr.user });
         this.loadPosts(this.state.page);
     }
 

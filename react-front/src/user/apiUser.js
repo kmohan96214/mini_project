@@ -49,7 +49,7 @@ export const list = () => {
         method: "GET"
     })
         .then(response => {
-            //console.log(response.json());
+            // console.log(response.json());
             return response.json();
         })
         .catch(err => console.log(err));

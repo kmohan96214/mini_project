@@ -23,46 +23,49 @@ class Signup extends Component {
     };
 
     recaptchaHandler = e => {
-        this.setState({ error: "" });
-        let userDay = e.target.value.toLowerCase();
-        let dayCount;
+        return true;
+        // this.setState({ error: "" });
+        // let userDay = e.target.value.toLowerCase();
+        // let dayCount;
 
-        if (userDay === "sunday") {
-            dayCount = 0;
-        } else if (userDay === "monday") {
-            dayCount = 1;
-        } else if (userDay === "tuesday") {
-            dayCount = 2;
-        } else if (userDay === "wednesday") {
-            dayCount = 3;
-        } else if (userDay === "thursday") {
-            dayCount = 4;
-        } else if (userDay === "friday") {
-            dayCount = 5;
-        } else if (userDay === "saturday") {
-            dayCount = 6;
-        }
+        // if (userDay === "sunday") {
+        //     dayCount = 0;
+        // } else if (userDay === "monday") {
+        //     dayCount = 1;
+        // } else if (userDay === "tuesday") {
+        //     dayCount = 2;
+        // } else if (userDay === "wednesday") {
+        //     dayCount = 3;
+        // } else if (userDay === "thursday") {
+        //     dayCount = 4;
+        // } else if (userDay === "friday") {
+        //     dayCount = 5;
+        // } else if (userDay === "saturday") {
+        //     dayCount = 6;
+        // }
 
-        if (dayCount === new Date().getDay()) {
-            this.setState({ recaptcha: true });
-            return true;
-        } else {
-            this.setState({
-                recaptcha: false
-            });
-            return false;
-        }
+        // if (dayCount === new Date().getDay()) {
+        //     this.setState({ recaptcha: true });
+        //     return true;
+        // } else {
+        //     this.setState({
+        //         recaptcha: false
+        //     });
+        //     return false;
+        // }
     };
 
     clickSubmit = event => {
         event.preventDefault();
-        const { name, email, password, birthday } = this.state;
+        const { name, email, password, recaptcha,birthday } = this.state;
         const user = {
             name,
             email,
             password,
+            recaptcha,
             birthday
         };
+        this.state.recaptcha = true;
         // console.log(user);
         if (this.state.recaptcha) {
             signup(user).then(data => {
@@ -74,6 +77,7 @@ class Signup extends Component {
                         email: "",
                         password: "",
                         birthday: "",
+                        recaptcha:"",
                         open: true
                     });
             });

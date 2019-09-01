@@ -24,8 +24,18 @@ export const create = (userId, token, post) => {
 // };
 
 // with pagination
-export const list = page => {
+export const list = (page) => {
     return fetch(`http://localhost:8080/api/posts/?page=${page}`, {
+        method: "GET"
+    })
+        .then(response => {
+            return response.json();
+        })
+        .catch(err => console.log(err));
+};
+
+export const list2 = (page,userid) => {
+    return fetch(`http://localhost:8080/api/posts/?page=${page}&userid=${userid}`, {
         method: "GET"
     })
         .then(response => {

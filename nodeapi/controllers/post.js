@@ -1,4 +1,5 @@
 const Post = require("../models/post");
+const User = require("../models/user");
 const formidable = require("formidable");
 const fs = require("fs");
 const _ = require("lodash");
@@ -39,16 +40,27 @@ exports.getPosts = (req, res) => {
 exports.getPosts = async (req, res) => {
     // get current page from req.query or use default value of 1
     const currentPage = req.query.page || 1;
+    const userid = req.query.userid || "1";
     // return 3 posts per page
+
+    following = []
+    const user = await User.findById(userid)
+                     .then( user => {
+                        following = user.following || [];
+                        // console.log(typeof user.following[0]);
+                        // console.log("0" + user.following[0]);
+                        console.log("user "+ user); 
+                     }).catch(err => console.log(err));
+
     const perPage = 6;
     let totalItems;
-
+    console.log(req.profile);
     const posts = await Post.find()
         // countDocuments() gives you total count of posts
         .countDocuments()
         .then(count => {
             totalItems = count;
-            return Post.find()
+            return Post.find( { postedBy : { $in : following } } )
                 .skip((currentPage - 1) * perPage)
                 .populate("comments", "text created")
                 .populate("comments.postedBy", "_id name")
@@ -61,10 +73,51 @@ exports.getPosts = async (req, res) => {
             res.status(200).json(posts);
         })
         .catch(err => console.log(err));
+        
 };
+
+exports.getPosts2 = async (req, res) => {
+    // get current page from req.query or use default value of 1
+    const currentPage = req.query.page || 1;
+    // return 3 posts per page
+    const perPage = 6;
+    let totalItems;
+    var following = [];
+    const user = await User.findOne({ _id : req.params.userid })
+                     .then( user => {
+                        following = user.following;
+                        // console.log(typeof user.following[0]);
+                        // console.log("0" + user.following[0]);
+                        console.log("user "+ user); 
+                     }).catch(err => console.log(err));
+
+    const posts = Post.find()
+        // countDocuments() gives you total count of posts
+        .countDocuments()
+        .then(count => {
+            totalItems = count;
+            return Post.find( { postedBy : { $in : following } } )
+                .skip((currentPage - 1) * perPage)
+                .populate("comments", "text created")
+                .populate("comments.postedBy", "_id name")
+                .populate("postedBy", "_id name")
+                .select("_id title body created likes")
+                .limit(perPage)
+                .sort({ created: -1 });
+        })
+        .then(posts => {
+            console.log("user: " + user);
+            res.status(200).json(posts);
+        })
+        .catch(err => console.log(err));
+
+};
+
+
 
 exports.createPost = (req, res, next) => {
     let form = new formidable.IncomingForm();
+    // console.log(req.profile);
     form.keepExtensions = true;
     form.parse(req, (err, fields, files) => {
         if (err) {
