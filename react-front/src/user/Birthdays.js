@@ -55,9 +55,9 @@ class Birthdays extends Component {
         return (
             <div className="container">
                 <h2 className="mt-5 mb-5">Birthdays</h2>
-                {this.renderUsers(users.filter(user => { return (new Date()).toString().substring(0,15)
+                {this.renderUsers(users.filter(user => { return (new Date()).toString().substring(4,10)
                                         ==
-                                        (new Date(user.birthday)).toString().substring(0,15);    }))}
+                                        (new Date(user.birthday)).toString().substring(4,10);    }))}
             </div>
         );
     }

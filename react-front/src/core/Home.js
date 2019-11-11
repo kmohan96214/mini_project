@@ -1,5 +1,6 @@
 import React from "react";
 import Posts from "../post/Posts";
+import { isAuthenticated } from "../auth";
 
 const Home = () => (
     <div>
@@ -8,7 +9,7 @@ const Home = () => (
             <p className="lead">Channel F</p>
         </div>
         <div className="container">
-            <Posts />
+               <h1><b>{ isAuthenticated() ? (< Posts/>) : "Please sigin to view posts" } </b></h1>
         </div>
     </div>
 );

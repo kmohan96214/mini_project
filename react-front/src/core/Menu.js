@@ -21,7 +21,7 @@ const Menu = ({ history }) => {
     list().then(data => {
         console.log(data.length);
         count = data.filter(d => { 
-          return (new Date()).toString().substring(0,15) == (new Date(d.birthday)).toString().substring(0,15)
+          return (new Date()).toString().substring(4,10) == (new Date(d.birthday)).toString().substring(4,10)
         })
         updateNum(count.length)
         updateAfterAjaxCall(true)
